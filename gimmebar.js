@@ -22,7 +22,7 @@ Gimme.prototype = {
 	getPublicAssets: function (callback, opts) {
 		var opts = extendObj({
 			'limit': 50,
-			'skip': parseInt(Math.random()*1000, 10), // Instead of using 1000, use the actual number of assets in the persons Library
+			'skip': parseInt(Math.random()*100, 10), // Instead of using 1000, use the actual number of assets in the persons Library
 			'type': 'embed'
 		}, opts);
 		var url = baseURL + '/public/assets/' + this.username + '?' + qs.stringify(opts);

@@ -26,7 +26,7 @@ Gimme.prototype = {
 			'type': 'embed'
 		}, opts);
 		var url = baseURL + '/public/assets/' + this.username + '?' + qs.stringify(opts);
-
+		console.log('API url in getPulic asset: ' + url);
 		request.get({ 'url': url }, function (error, r, body) {
 			if (error) {
 				callback(error, null);
@@ -46,13 +46,16 @@ Gimme.prototype = {
 		});
 	},
 	getAssetFromCollection: function(callback, opts) {
-		// This takes from the Library, and not the collection for the time being
+		// This gets and asset from the Library, not the collection for the time being
+		var collection_slug = opts.slug;
+		console.log(collection_slug);
 		var opts = extendObj({
 			'limit': 50,
-			'skip': parseInt(Math.random()*100, 10), // Instead of using 1000, use the actual number of assets in the persons Library
+			'skip': parseInt(Math.random()*20, 10), // Instead of using 1000, use the actual number of assets in the persons Library
 			'type': 'embed'
 		}, opts);
-		var url = baseURL + '/public/assets/' + this.username + '?' + qs.stringify(opts)
+		var url = baseURL + '/public/assets/' + this.username + '/' + collection_slug + '?' + qs.stringify(opts)
+		console.log('API url in getAssetFromCollection: ' + url);
 
 		request.get({ 'url': url }, function (error, r, body){
 			if (error) {
@@ -60,7 +63,6 @@ Gimme.prototype = {
 			} else {
 				callback(null, JSON.parse(body));
 			}
-
 		});
 	}
 };

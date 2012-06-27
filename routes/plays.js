@@ -15,10 +15,7 @@ getAsset = function(req, res){
   		//assetID: '4fdb10f6aac422d520000006' // video asset
   		//assetID: '4fe97633aac4220c15000007' // image asset
 	};
-	console.log('assetId is:' + view.assetID);
 	gimme.setUsername(view.username);
-
-	// This should be assetID instead, and if it has one, find it throuhg th API and add metadata to the view.
 
 	// So if you want to play an asset, there should be an a.
 	if (pathname[1] == 'a') {
@@ -58,7 +55,7 @@ function getAssetFromCollection (res, req, view) {
 
 		view.updateLocation = true;
 		res.render('test', view)
-	});
+	}, { 'slug': view.slug});
 }
 
 function getRandomAsset (res, req, view) {

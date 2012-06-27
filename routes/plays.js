@@ -106,6 +106,7 @@ function getRandomAsset (res, req, view) {
 	});
 };
 
+// stuff from gimmeplop
 /*function getRandomAsset (req, res, view) {
 	gimme.getPublicAssets(function (err, data) {
 		// Hack: does user exist?

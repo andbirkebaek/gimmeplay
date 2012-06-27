@@ -3,10 +3,13 @@ extends layout
 block content
   div#youtubevideo
     <iframe title="YouTube video player" src="http://www.youtube.com/embed/#{asset.video_id}?autoplay=0&controls=0&showinfo=0" width="100%" height="100%" frameborder="0" allowfullscreen="" allowscriptaccess="always"></iframe>
+  div#instructions
+    p Scroll
   div#somecontent
-    p= asset.id
     p= asset.title
-    p= asset.source
-    p= asset.video_id
-    p= username
-    p= asset.service
+    p
+    a(href=asset.source) #{asset.service}
+    p
+    a(href=asset.id) Asset Link
+    p
+    a(href=username) #{username}

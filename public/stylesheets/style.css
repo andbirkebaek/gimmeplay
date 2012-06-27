@@ -1,11 +1,13 @@
 body {
 	background-color: #000000;
 	margin: 0px 0px 0px 0px;
+	height: 700px;
 }
 
 #youtubevideo {
 	width: 100%;
 	height: 100%;
+	position: fixed;
 }
 
 #content {
@@ -30,7 +32,41 @@ h1 {
 	line-height: 60px;
 }
 
+#instructions {
+	color: #ffffff;
+	font-family: 'Helvetica Neue', Arial;
+	font-size: 14px;
+	text-align: center;
+	width: 60px;
+	height: 20px;
+	position: absolute;
+	bottom: 0px;
+	left: 10px;
+	background-color: #000000;
+	padding: 0px 0px 0px 0px;
+	opacity: 0.9;
+	-moz-opacity: 0.9;
+	filter:alpha(opacity=9);
+}
+
+#instructions p {
+	margin-top: 3px;
+}
+
 #somecontent {
 	color: #ffffff;
+	font-family: 'Helvetica Neue', Arial;
+	font-size: 14px;
+	height: 150px;
+	width: 500px;
+	padding-left: 20px;
+	position: absolute;
+	bottom: -150px;
+	left: 0px;
+	z-index: 5;
+	background-color: #000000;
+	opacity: 0.9;
+	-moz-opacity: 0.9;
+	filter:alpha(opacity=9);
 }
 

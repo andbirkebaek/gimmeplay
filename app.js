@@ -27,7 +27,8 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index);
-app.get('/*', plays.getAsset);
+app.get('/a*', plays.getAsset);
+app.get('/djs*', plays.getAsset);
 
 http.createServer(app).listen(3000);
 

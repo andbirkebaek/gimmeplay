@@ -5,11 +5,12 @@ var gimmebar = require('../gimmebar');
 var gimme = new gimmebar.Gimme();
 
 getAsset = function(req, res){
-	console.log('Inside getAsset in plays.js');
 	var pathname = url.parse(req.url).pathname.substring(1).split('/');
   	var view = {
 		title: 'Player', 
   		username: pathname[0],
+  		//assetID: pathname[2]
+  		//slug: pathname[3]
   		//assetID: '4fe9c2d129ca15d16f000006' // full page asset
   		//assetID: '4fdb10f6aac422d520000006' // video asset
   		//assetID: '4fe97633aac4220c15000007' // image asset
@@ -18,54 +19,57 @@ getAsset = function(req, res){
 	gimme.setUsername(view.username);
 
 	// This should be assetID instead, and if it has one, find it throuhg th API and add metadata to the view.
-	if (view.assetID) {
-		getAssetById(view.assetID, function(asset) {
-			view.asset = getAssetParams(asset);
+
+	// So if you want to play an asset, there should be an a.
+	if (pathname[1] == 'a') {
+		view.assetID = pathname[2];
+		if (view.assetID) { // if there is an ID, render the asset.
+			getAssetById(view.assetID, function(asset) {
+			view.asset = getAssetParams(res, asset);
+
 			res.render('test', view);
 			console.log('assetid is known and the source is: ' + asset.source);
-		});
-	} else {
-		getRandomAsset(res, req, view);
-	};
+			console.log('asset title is' + asset.title);
+			});
+		} else { // if there is no id, get a random video:
+			getRandomAsset(res, req, view);
+		};
+	} else if (pathname[1] = 'djs') { // if it says djs
+		view.slug = pathname[2];
+		view.assetID = pathname[3];
+		if (view.assetID) {			// and there is an id, play it
+			getAssetById(view.assetID, function(asset) {
+			view.asset = getAssetParams(res, asset);
+
+			res.render('test', view);
+			});
+		} else {					// otherwise, get a random asset from that collection
+			getAssetFromCollection(res, req, view);
+		}
+	} else {						// if none of this works, render the 404 page
+		view = {title: '404' };
+		res.render('404', view);
+	}
 };
 
-/*getAsset = function(req, res){
-	var pathname = url.parse(req.url).pathname.substring(1).split('/');
-  	var view = {
-		title: 'Player', 
-  		videoid: pathname[1],
-  		username: 'andreas',
-  		assetID: '4fe9c2d129ca15d16f000006'
-	};
+function getAssetFromCollection (res, req, view) {
+	gimme.getAssetFromCollection(function (err, data) {
+		view.asset = getAssetParams(res, data.records[0]);
 
-	// This should be assetID instead, and if it has one, find it throuhg th API and add metadata to the view.
-	if (view.assetID) {
-		res.render('player', view);
-	} else {
-		getRandomAsset(res, req, view);
-	};
-};*/
+		view.updateLocation = true;
+		res.render('test', view)
+	});
+}
 
-getRandomAsset = function(res, req, view) {
+function getRandomAsset (res, req, view) {
 	gimme.getPublicAssets(function (err, data) {
 		view.asset = getAssetParams(res, data.records[0]);
-		console.log('From getRandomAsset, the source is: ' + view.asset.source);
+		//console.log('From getRandomAsset, the source is: ' + view.asset.source);
 		view.updateLocation = true;
 		res.render('test', view);
 		//setPathAndQuery(req, view);
 	});
 };
-
-/*getRandomAsset = function(res, req, view) {
-	// Get a random asset through the API here. There is a collection ID in the view.
-	var view = {
-		title: 'player',
-		videoid: '-TTPGAy5H_E'
-	}
-	// Render the random asset
-	res.render('test', view);
-	// Update the URL here:
-};*/
 
 function getAssetById (asset_id, cb) {
 	gimme.getAsset(function (err, asset) {
@@ -99,7 +103,7 @@ function getAssetParams (res, asset) {
 			service = 'unknown';
 		}
 
-		// Finds the ID for youtube and vimeo videos. errors out if it didn't match
+		// Finds the ID for youtube and vimeo videos. Gived 404 if we don't recognize the service.
 		if (service == 'youtube') {
 			var video_id = asset.source.split("v=")[1].substring(0, 11);
 		} else if (service == 'vimeo')  {
@@ -116,7 +120,8 @@ function getAssetParams (res, asset) {
 			'id': asset.id,
 			'source': asset.source,
 			'video_id': video_id,
-			'title': asset.title
+			'title': asset.title,
+			'service': service
 		};
 	} else {
 		return false;

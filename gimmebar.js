@@ -37,13 +37,30 @@ Gimme.prototype = {
 	},
 	getAsset: function (callback, opts) {
 		var url = baseURL + '/public/asset/' + opts.id;
-		console.log('Inside getAsset in gimmebar.js');
 		request.get({ 'url': url }, function (error, r, body) {
 			if (error) {
 				callback(error, null);
 			} else {
 				callback(null, JSON.parse(body));
 			}
+		});
+	},
+	getAssetFromCollection: function(callback, opts) {
+		// This takes from the Library, and not the collection for the time being
+		var opts = extendObj({
+			'limit': 50,
+			'skip': parseInt(Math.random()*100, 10), // Instead of using 1000, use the actual number of assets in the persons Library
+			'type': 'embed'
+		}, opts);
+		var url = baseURL + '/public/assets/' + this.username + '?' + qs.stringify(opts)
+
+		request.get({ 'url': url }, function (error, r, body){
+			if (error) {
+				callback(error, null);
+			} else {
+				callback(null, JSON.parse(body));
+			}
+
 		});
 	}
 };

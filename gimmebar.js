@@ -22,18 +22,22 @@ Gimme.prototype = {
 	getPublicAssets: function (callback, opts) {
 		var opts = extendObj({
 			'limit': 50,
-			'skip': parseInt(Math.random()*100, 10), // Instead of using 1000, use the actual number of assets in the persons Library
+			'skip': 0,//parseInt(Math.random()*100, 10), // Instead of using 1000, use the actual number of assets in the persons Library
 			'type': 'embed'
 		}, opts);
+		
 		var url = baseURL + '/public/assets/' + this.username + '?' + qs.stringify(opts);
-		console.log('API url in getPulic asset: ' + url);
+
 		request.get({ 'url': url }, function (error, r, body) {
 			if (error) {
 				callback(error, null);
 			} else {
 				callback(null, JSON.parse(body));
 			}
+			//var data = JSON.parse(body);
+			//console.log(data.total_records);
 		});
+
 	},
 	getAsset: function (callback, opts) {
 		var url = baseURL + '/public/asset/' + opts.id;
@@ -54,8 +58,8 @@ Gimme.prototype = {
 			'skip': parseInt(Math.random()*20, 10), // Instead of using 1000, use the actual number of assets in the persons Library
 			'type': 'embed'
 		}, opts);
-		var url = baseURL + '/public/assets/' + this.username + '/' + collection_slug + '?' + qs.stringify(opts)
-		console.log('API url in getAssetFromCollection: ' + url);
+		var url = baseURL + '/public/assets/' + this.username + '/' + collection_slug + '?' + qs.stringify(opts);
+		console.log(url);
 
 		request.get({ 'url': url }, function (error, r, body){
 			if (error) {

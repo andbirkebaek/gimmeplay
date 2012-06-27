@@ -18,13 +18,23 @@ getAsset = function(req, res){
 	gimme.setUsername(view.username);
 
 	// So if you want to play an asset, there should be an a.
-	if (pathname[1] == 'a') {
+	if (pathname[1] == 'a' || pathname[1] == '') {
 		view.assetID = pathname[2];
 		if (view.assetID) { // if there is an ID, render the asset.
 			getAssetById(view.assetID, function(asset) {
 			view.asset = getAssetParams(res, asset);
 
-			res.render('test', view);
+			// This is done in a couple of places. Maybe make a new method to streamline this.
+			// Chooses the right view based on service
+			if (view.asset.service == 'youtube') {
+				res.render('youtubeplayer', view);
+			} else if (view.asset.service == 'vimeo') {
+				res.render('vimeoplayer', view);
+			} else {
+				view = {title: 'Yikes', error: 'We dont know how to deal with this type of asset. (getAsset)'};
+				res.render('error', view);
+			};
+
 			console.log('assetid is known and the source is: ' + asset.source);
 			console.log('asset title is' + asset.title);
 			});
@@ -35,16 +45,24 @@ getAsset = function(req, res){
 		view.slug = pathname[2];
 		view.assetID = pathname[3];
 		if (view.assetID) {			// and there is an id, play it
+			console.log('This is where it dies isnt it?')
 			getAssetById(view.assetID, function(asset) {
 			view.asset = getAssetParams(res, asset);
 
-			res.render('test', view);
+			if (view.asset.service == 'youtube') {
+				res.render('youtubeplayer', view);
+			} else if (view.asset.service == 'vimeo') {
+				res.render('vimeoplayer', view);
+			} else {
+				view = {title: 'Yikes', error: 'This is where we choose what to render (getAsset)'};
+				res.render('error', view);
+			};
 			});
 		} else {					// otherwise, get a random asset from that collection
 			getAssetFromCollection(res, req, view);
 		}
 	} else {						// if none of this works, render the 404 page
-		view = {title: '404' };
+		view = {title: '404', error: 'Super fail.' };
 		res.render('404', view);
 	}
 };
@@ -54,19 +72,68 @@ function getAssetFromCollection (res, req, view) {
 		view.asset = getAssetParams(res, data.records[0]);
 
 		view.updateLocation = true;
-		res.render('test', view)
+		if (view.asset.service == 'youtube') {
+				res.render('youtubeplayer', view);
+			} else if (view.asset.service == 'vimeo') {
+				res.render('vimeoplayer', view);
+			} else {
+				view = {title: 'Yikes', error: 'This is where we choose what to render. Sometimes it gets all the way down here when there isnt and asset. (getAssetFromCollection)'};
+				res.render('error', view);
+		};
 	}, { 'slug': view.slug});
 }
 
 function getRandomAsset (res, req, view) {
 	gimme.getPublicAssets(function (err, data) {
 		view.asset = getAssetParams(res, data.records[0]);
-		//console.log('From getRandomAsset, the source is: ' + view.asset.source);
+		
+		console.log(data.total_records);
+		
 		view.updateLocation = true;
-		res.render('test', view);
+		if (view.asset.service == 'youtube') {
+				res.render('youtubeplayer', view);
+			} else if (view.asset.service == 'vimeo') {
+				res.render('vimeoplayer', view);
+			} else {
+				view = {title: 'Yikes', error: 'This is where we choose what to render. (getRandomAsset'};
+				res.render('error', view);
+		};
 		//setPathAndQuery(req, view);
+	}, {
+		'limit': 1,
+		'skip': 4, //res.session.numberOfRecords ? parseInt(Math.random()*res.session.numberOfRecords, 10) : 0,
+		'type': 'embed'
 	});
 };
+
+/*function getRandomAsset (req, res, view) {
+	gimme.getPublicAssets(function (err, data) {
+		// Hack: does user exist?
+		gimme.setMaxRecords();
+		if (!req.session.username) { // first-run
+			req.session.username = view.username;
+		 	req.session.total = data.total_records;
+		} else if (req.session.username != view.username) { // different user
+			req.session.username = view.username;
+		 	req.session.total = data.total_records;
+		}
+
+		view.asset = getAssetParams(data.records[0]);
+		view.updateLocation = true;
+		if (view.asset.service == 'youtube') {
+				res.render('youtubeplayer', view);
+			} else if (view.asset.service == 'vimeo') {
+				res.render('vimeoplayer', view);
+			} else {
+				view = {title: 'Yikes', error: 'This is where we choose what to render. (getRandomAsset'};
+				res.render('error', view);
+		};
+	}, {
+		'limit': 1,
+		'skip': req.session.total ? parseInt(Math.random()*req.session.total, 10) : 0,
+		'type': 'embed'
+	});
+}*/
 
 function getAssetById (asset_id, cb) {
 	gimme.getAsset(function (err, asset) {
@@ -80,7 +147,7 @@ function getAssetById (asset_id, cb) {
 
 function getAssetParams (res, asset) {
 	if (asset) {
-		console.log('before splitting the source: ' + asset.source)
+		console.log('Source: ' + asset.source);
 
 		// This checks what the first part of the links is. It's probably far from robust.
 		var firstPartOfURL = asset.source.split("http")[1].substring(0, 3);
@@ -100,6 +167,8 @@ function getAssetParams (res, asset) {
 			service = 'unknown';
 		}
 
+		console.log('Type: ' + service);
+
 		// Finds the ID for youtube and vimeo videos. Gived 404 if we don't recognize the service.
 		if (service == 'youtube') {
 			var video_id = asset.source.split("v=")[1].substring(0, 11);
@@ -107,10 +176,10 @@ function getAssetParams (res, asset) {
 			var video_id = asset.source.split("com/")[1].substring(0, 8);
 		} else {
 			var view = {
-				title: '404',
-				error: 'Other source than Youtube and Vimeo. :smithcide:'
+				title: 'Yikes',
+				error: 'Other source than Youtube and Vimeo. Probably because there isnt an asset at that number, or that the type is unknown (godgriner.dk). (getAssetParams)'
 			};
-			res.render('404', view);
+			res.render('error', view);
 		}
 
 		return {

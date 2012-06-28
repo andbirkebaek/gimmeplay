@@ -83,4 +83,5 @@ function extendObj (org, overwrite) {
 	return extended;
 }
 
+exports.extendObj = extendObj;
 exports.Gimme = Gimme;

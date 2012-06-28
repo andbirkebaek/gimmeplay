@@ -38,7 +38,7 @@ getAsset = function(req, res){
 			getRandomAsset(res, req, view);
 		}
 	} else if (view.playerType = 'djs') {
-		view.slug = pathname[2];
+		view.collection_slug = pathname[2];
 		view.assetID = pathname[3];
 		// If there is an assetID, get that asset
 		if (view.assetID) {
@@ -67,18 +67,47 @@ getAsset = function(req, res){
 
 function getAssetFromCollection (res, req, view) {
 	gimme.getAssetFromCollection(function (err, data) {
-		view.asset = getAssetParams(res, data.records[0]);
-
-		view.updateLocation = true;
-		if (view.asset.service == 'youtube') {
-				res.render('youtubeplayer', view);
-			} else if (view.asset.service == 'vimeo') {
-				res.render('vimeoplayer', view);
+		if (!err) {
+			if (data.errors && data.errors[0].name === "RESOURCE_NOT_FOUND") {
+				res.render('404', view = {title: 'Error', error: 'Ressource not found'});
 			} else {
-				view = {title: 'Yikes', error: 'This is where we choose what to render. Sometimes it gets all the way down here when there isnt and asset. (getAssetFromCollection)'};
-				res.render('error', view);
-		};
-	}, { 'slug': view.slug});
+				if (!req.session.username || !req.session.collection_slug) {
+					req.session.username = view.username;
+					req.session.collection_slug = view.collection_slug;
+					req.session.total = data.total_records;
+				} else if (req.session.username != view.username || req.session.collection_slug != view.username) {
+					req.session.username = view.username;
+					req.session.collection_slug = view.collection_slug;
+					req.session.total = data.total_records;
+				}
+
+				view.asset = getAssetParams(req, data.records[0]);
+				if (view.asset.service == 'youtube') {
+					res.render('youtubeplayer', view);
+				} else if (view.asset.service == 'vimeo') {
+					res.render('vimeoplayer', view);
+				} else {
+					if (req.session.total != 0) {
+						// This gives an infinite loop when a collection doesn't have a video
+						//getAssetFromCollection(res, req, view);
+
+						// For now the error is just going to render like this:
+						view = {title: 'Yikes', error: 'Unknown type)'};
+						res.render('error', view);
+					} else {
+						view = {title: 'Yikes', error: 'Unknown type (There is no videos in this collection.)'};
+						res.render('error', view);
+					}
+				}
+			console.log('Total for collecion is: ' + req.session.total);
+			}
+		}
+	}, {
+		'limit': 1,
+		'skip': req.session.total ? parseInt(Math.random()*req.session.total, 10) : 0,
+		'type': 'embed',
+		'slug': view.collection_slug
+	});
 }
 
 function getRandomAsset (res, req, view) {
@@ -90,28 +119,31 @@ function getRandomAsset (res, req, view) {
 				if (!req.session.username) { // first run
 					req.session.username = view.username;
 				 	req.session.total = data.total_records;
-				} else if (req.session.username != view.username) { // different user
+				} else if (req.session.username != view.username ) { // different user
 					req.session.username = view.username;
 				 	req.session.total = data.total_records;
+				} else if (req.session.total != data.total_records) {
+					req.session.username = view.username;
+					req.session.total = data.total_records;	
 				}
 
 				view.asset = getAssetParams(res, data.records[0]);
 				view.updateLocation = true;
 				if (view.asset.service == 'youtube') {
-						res.render('youtubeplayer', view);
-					} else if (view.asset.service == 'vimeo') {
-						res.render('vimeoplayer', view);
+					res.render('youtubeplayer', view);
+				} else if (view.asset.service == 'vimeo') {
+					res.render('vimeoplayer', view);
+				} else {
+					//view = {title: 'Yikes', error: 'Service isnt known. TODO: Get a new asset.'};
+					//res.render('error', view);
+					if (req.session.total != 0) {
+						getRandomAsset(res, req, view);
 					} else {
-						//view = {title: 'Yikes', error: 'Service isnt known. TODO: Get a new asset.'};
-						//res.render('error', view);
-						if (req.session.total != 0) {
-							getRandomAsset(res, req, view);
-						} else {
-							view = {title: 'Yikes', error: 'This guy has no collections. (getRandomAsset)'};
-							res.render('error', view);
-						}
+						view = {title: 'Yikes', error: 'This guy has no collections. (getRandomAsset)'};
+						res.render('error', view);
 					}
-				
+				}
+				console.log('Total for user is: ' + req.session.total);
 				//Need to set the URL appropriately after rendering the view
 				//setPathAndQuery(req, view);
 			}

@@ -53,12 +53,13 @@ Gimme.prototype = {
 		console.log(collection_slug);
 		var opts = extendObj({
 			'limit': 50,
-			'skip': parseInt(Math.random()*15, 10), //use the actual number of assets in the collection
+			'skip': 0,
 			'type': 'embed'
 		}, opts);
+		
+
 		var url = baseURL + '/public/assets/' + this.username + '/' + collection_slug + '?' + qs.stringify(opts);
 		console.log(url);
-
 		request.get({ 'url': url }, function (error, r, body){
 			if (error) {
 				callback(error, null);

@@ -85,56 +85,40 @@ function getAssetFromCollection (res, req, view) {
 
 function getRandomAsset (res, req, view) {
 	gimme.getPublicAssets(function (err, data) {
-		view.asset = getAssetParams(res, data.records[0]);
-		
-		console.log(data.total_records);
-		
-		view.updateLocation = true;
-		if (view.asset.service == 'youtube') {
-				res.render('youtubeplayer', view);
-			} else if (view.asset.service == 'vimeo') {
-				res.render('vimeoplayer', view);
+		if (!err) {			
+			if (data.errors && data.errors[0].name === 'RESOURCE_NOT_FOUND') {
+				res.render('404', view = {title: 'error', error: 'Ressource not found'});
 			} else {
-				view = {title: 'Yikes', error: 'This is where we choose what to render. (getRandomAsset'};
-				res.render('error', view);
-		};
-		//setPathAndQuery(req, view);
-	}, {
-		'limit': 1,
-		'skip': 4, //res.session.numberOfRecords ? parseInt(Math.random()*res.session.numberOfRecords, 10) : 0,
-		'type': 'embed'
-	});
-};
 
-// stuff from gimmeplop
-/*function getRandomAsset (req, res, view) {
-	gimme.getPublicAssets(function (err, data) {
-		// Hack: does user exist?
-		gimme.setMaxRecords();
-		if (!req.session.username) { // first-run
-			req.session.username = view.username;
-		 	req.session.total = data.total_records;
-		} else if (req.session.username != view.username) { // different user
-			req.session.username = view.username;
-		 	req.session.total = data.total_records;
+				if (!req.session.username) { // first-run
+					req.session.username = view.username;
+				 	req.session.total = data.total_records;
+				} else if (req.session.username != view.username) { // different user
+					req.session.username = view.username;
+				 	req.session.total = data.total_records;
+				}
+
+				view.asset = getAssetParams(res, data.records[0]);
+				view.updateLocation = true;
+				if (view.asset.service == 'youtube') {
+						res.render('youtubeplayer', view);
+					} else if (view.asset.service == 'vimeo') {
+						res.render('vimeoplayer', view);
+					} else {
+						view = {title: 'Yikes', error: 'Service isnt known. (getRandomAsset)'};
+						res.render('error', view);
+					}
+				
+				//Need to set the URL appropriately after rendering the view
+				//setPathAndQuery(req, view);
+			}
 		}
-
-		view.asset = getAssetParams(data.records[0]);
-		view.updateLocation = true;
-		if (view.asset.service == 'youtube') {
-				res.render('youtubeplayer', view);
-			} else if (view.asset.service == 'vimeo') {
-				res.render('vimeoplayer', view);
-			} else {
-				view = {title: 'Yikes', error: 'This is where we choose what to render. (getRandomAsset'};
-				res.render('error', view);
-		};
 	}, {
 		'limit': 1,
 		'skip': req.session.total ? parseInt(Math.random()*req.session.total, 10) : 0,
 		'type': 'embed'
 	});
-}*/
+};
 
 function getAssetById (asset_id, cb) {
 	gimme.getAsset(function (err, asset) {

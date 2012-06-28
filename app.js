@@ -5,6 +5,8 @@
 var express = require('express');
 var routes = require('./routes');
 var http = require('http');
+var connect = require('connect');
+//var RedisStore = require('connect-redis')(express);
 
 var plays = require('./routes/plays');
 var player = require('./routes/player');
@@ -19,6 +21,9 @@ app.configure(function(){
   app.use(express.static(__dirname + '/public'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
+  connect();
+  app.use(express.cookieParser('keyboard cat'));
+  app.use(express.session({ key: 'smelly cat'}));
   app.use(app.router);
 });
 

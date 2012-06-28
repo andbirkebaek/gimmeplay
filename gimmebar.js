@@ -22,10 +22,10 @@ Gimme.prototype = {
 	getPublicAssets: function (callback, opts) {
 		var opts = extendObj({
 			'limit': 50,
-			'skip': 0,//parseInt(Math.random()*100, 10), // Instead of using 1000, use the actual number of assets in the persons Library
+			'skip': 0,
 			'type': 'embed'
 		}, opts);
-		
+
 		var url = baseURL + '/public/assets/' + this.username + '?' + qs.stringify(opts);
 
 		request.get({ 'url': url }, function (error, r, body) {
@@ -34,8 +34,6 @@ Gimme.prototype = {
 			} else {
 				callback(null, JSON.parse(body));
 			}
-			//var data = JSON.parse(body);
-			//console.log(data.total_records);
 		});
 
 	},

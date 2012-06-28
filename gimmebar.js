@@ -27,7 +27,7 @@ Gimme.prototype = {
 		}, opts);
 
 		var url = baseURL + '/public/assets/' + this.username + '?' + qs.stringify(opts);
-
+		console.log(url);
 		request.get({ 'url': url }, function (error, r, body) {
 			if (error) {
 				callback(error, null);
@@ -53,7 +53,7 @@ Gimme.prototype = {
 		console.log(collection_slug);
 		var opts = extendObj({
 			'limit': 50,
-			'skip': parseInt(Math.random()*20, 10), // Instead of using 1000, use the actual number of assets in the persons Library
+			'skip': parseInt(Math.random()*15, 10), //use the actual number of assets in the collection
 			'type': 'embed'
 		}, opts);
 		var url = baseURL + '/public/assets/' + this.username + '/' + collection_slug + '?' + qs.stringify(opts);

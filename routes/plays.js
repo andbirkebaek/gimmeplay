@@ -30,6 +30,7 @@ getAsset = function(req, res){
 					// Errors out here. TODO: Get a new asset instead.
 					view = {title: 'Yikes', error: 'We dont know how to deal with this type of asset. (getAsset)'};
 					res.render('error', view);
+					getRandomAsset(res, req, view);
 				};
 			});
 		} else {
@@ -101,8 +102,14 @@ function getRandomAsset (res, req, view) {
 					} else if (view.asset.service == 'vimeo') {
 						res.render('vimeoplayer', view);
 					} else {
-						view = {title: 'Yikes', error: 'Service isnt known. TODO: Get a new asset.'};
-						res.render('error', view);
+						//view = {title: 'Yikes', error: 'Service isnt known. TODO: Get a new asset.'};
+						//res.render('error', view);
+						if (req.session.total != 0) {
+							getRandomAsset(res, req, view);
+						} else {
+							view = {title: 'Yikes', error: 'This guy has no collections. (getRandomAsset)'};
+							res.render('error', view);
+						}
 					}
 				
 				//Need to set the URL appropriately after rendering the view
@@ -129,16 +136,22 @@ function getAssetById (asset_id, cb) {
 
 function getAssetParams (res, asset) {
 	if (asset) {
+		//  var src = asset.content.params.src;
+		var src = asset.source;
+
 		console.log('Source: ' + asset.source);
+		console.log('src: ' + src);
 
 		// This checks what the first part of the links is. It's probably far from robust.
-		var firstPartOfURL = asset.source.split("http")[1].substring(0, 3);
+		var firstPartOfURL = src.split("http")[1].substring(0, 3);
+
 
 		if (firstPartOfURL == '://') {
-			var service = asset.source.split("http://")[1].substring(0, 5);
+			var service = src.split("http://")[1].substring(0, 5);
 		} else {
-			var service = asset.source.split("https://")[1].substring(0, 5);
+			var service = src.split("https://")[1].substring(0, 5);
 		}
+		console.log('what is the url: ' + service);
 
 		// Sets service to the appropriate service
 		if (service == 'www.y') {
@@ -156,12 +169,6 @@ function getAssetParams (res, asset) {
 			var video_id = asset.source.split("v=")[1].substring(0, 11); // TODO: It can crash here. What to do?
 		} else if (service == 'vimeo')  {
 			var video_id = asset.source.split("com/")[1].substring(0, 8);
-		} else {
-			var view = {
-				title: 'Yikes',
-				error: 'Other source than Youtube and Vimeo. Probably because there isnt an asset at that number, or that the type is unknown (godgriner.dk). (getAssetParams)'
-			};
-			res.render('error', view);
 		}
 
 		return {

@@ -38,11 +38,11 @@ h1 {
 	font-family: 'Helvetica Neue', Arial;
 	font-size: 14px;
 	text-align: center;
-	width: 60px;
+	width: 40px;
 	height: 20px;
 	position: absolute;
-	bottom: 0px;
-	left: 10px;
+	bottom: 30%;
+	right: 0px;
 	background-color: #000000;
 	padding: 0px 0px 0px 0px;
 	opacity: 0.9;
@@ -54,20 +54,51 @@ h1 {
 	margin-top: 3px;
 }
 
-#somecontent {
+#metadata {
 	color: #ffffff;
 	font-family: 'Helvetica Neue', Arial;
-	font-size: 14px;
-	height: 150px;
-	width: 500px;
-	padding-left: 20px;
+	font-size: 13px;
+	width: 180px;
+	padding: 0px 10px 0px 10px;
 	position: absolute;
-	bottom: -150px;
-	left: 0px;
+	right: -200px;
+	margin: 0px;
+	bottom: 30%;
 	z-index: 5;
 	background-color: #000000;
 	opacity: 0.9;
 	-moz-opacity: 0.9;
 	filter:alpha(opacity=9);
 }
+
+#metadata h1 {
+	font-size: 14px;
+	line-height: 16px;
+	font-weight: normal;
+}
+
+#titlearea {
+	border-bottom-style: dashed;
+	border-bottom-width: thin;
+	border-bottom-color: #9f9f9e;
+}
+
+#metadata ul {
+	line-height: 20px;
+}
+
+li.gimmebar {
+	list-style-image: url(../images/gimmebar14.png);
+}
+li.youtube {
+	list-style-image: url(../images/source14.png);
+}
+li.user {
+	list-style-image: url(../images/user14.png);
+}
+
+#metadata a:link {color: #ffffff; text-decoration: none;}
+#metadata a:hover {color: #ffffff; text-decoration: underline;}
+#metadata a:active {color: #ffffff; text-decoration: none;}
+#metadata a:visited {color: #ffffff; text-decoration: none;}
 

@@ -9,7 +9,6 @@ var connect = require('connect');
 //var RedisStore = require('connect-redis')(express);
 
 var plays = require('./routes/plays');
-var player = require('./routes/player');
 
 var app = express();
 

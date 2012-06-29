@@ -2,14 +2,28 @@ extends layout
 
 block content
   div#youtubevideo
-    <iframe title="YouTube video player" src="http://www.youtube.com/embed/#{asset.video_id}?autoplay=0&controls=0&showinfo=0" width="100%" height="100%" frameborder="0" allowfullscreen="" allowscriptaccess="always"></iframe>
+    <iframe title="YouTube video player" id="ytplayer" src="http://www.youtube.com/embed/#{asset.video_id}?autoplay=0&controls=0&showinfo=0" width="100%" height="100%" frameborder="0" allowfullscreen="" allowscriptaccess="always"></iframe>
   div#instructions
-    p Scroll
-  div#somecontent
-    p= asset.title
-    p
-    a(href=asset.source) #{asset.service}
-    p
-    a(href=asset.id) Asset Link
-    p
-    a(href=username) #{username}
+    a()#intobutton Info
+  div#metadata
+    div#titlearea
+      h1= asset.title
+    ul
+      li.youtube
+        a(href='http://www.youtube.com/watch?v=' + asset.video_id) Source
+      li.gimmebar
+        a(href='http://gim.ie/' + asset.short_url_token) gim.ie/#{asset.short_url_token}
+      li.user
+        a(href='https://gimmebar.com/loves/' + username) #{username}
+      if (typeof(collection_slug) != 'undefined')
+        li= collection_slug
+        li
+          a(href='localhost:3000/' + username + '/djs/' + collection_slug) Next
+      else
+        li
+          a()#nextbutton -->
+  script('text/javascript')
+    $('#intobutton').click(function () {
+      $('#intobutton').scrollTo({top:'0px', right:'0px'}, 800 );
+    });
+

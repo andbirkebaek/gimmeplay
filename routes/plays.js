@@ -44,7 +44,6 @@ getAsset = function(req, res){
 		if (view.assetID) {
 			getAssetById(view.assetID, function(asset) {
 				view.asset = getAssetParams(res, asset);
-
 				if (view.asset.service == 'youtube') {
 					res.render('youtubeplayer', view);
 				} else if (view.asset.service == 'vimeo') {
@@ -83,6 +82,7 @@ function getAssetFromCollection (res, req, view) {
 
 				view.asset = getAssetParams(req, data.records[0]);
 				if (view.asset.service == 'youtube') {
+					console.log('slug is: ' + view.collection_slug);
 					res.render('youtubeplayer', view);
 				} else if (view.asset.service == 'vimeo') {
 					res.render('vimeoplayer', view);
@@ -208,6 +208,7 @@ function getAssetParams (res, asset) {
 			'source': asset.source,
 			'video_id': video_id,
 			'title': asset.title,
+			'short_url_token': asset.short_url_token,
 			'service': service
 		};
 	} else {

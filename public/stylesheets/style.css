@@ -5,7 +5,7 @@ body {
 	color: #ffffff;
 }
 
-#youtubevideo {
+#player {
 	width: 100%;
 	height: 100%;
 	position: fixed;
@@ -26,9 +26,44 @@ body {
 	filter:alpha(opacity=9);
 }
 
+#inputfield {
+	width: 500px;
+	height: 50px;
+	font-size: 32px;
+	position: absolute;
+	margin-left: 200px;
+	margin-top: 40%;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#collections-container {
+	width: 400px;
+	margin: auto;
+	text-align: center;
+}
+
+#collections-container h1 {
+	font-size: 32px;
+	text-align: center;
+}
+
+#collections-container ul {
+	text-align: left;
+	width: 400px;
+	font-size: 20px;
+	font-family: "Helvetica Neue", sans-serif;
+	border-color: #ffffff;
+	margin: auto;
+}
+
+#collections-container li {
+	margin-left: 0px;
+}
+
 h1 {
 	color: #ffffff;
-	font-family: Helvetica Neue, sans-serif;
+	font-family: 'Helvetica Neue', sans-serif;
 	font-size: 48px;
 	line-height: 60px;
 }
@@ -36,10 +71,10 @@ h1 {
 #instructions {
 	color: #ffffff;
 	font-family: 'Helvetica Neue', Arial;
-	font-size: 14px;
+	font-size: 20px;
 	text-align: center;
-	width: 40px;
-	height: 20px;
+	width: 25px;
+	height: 28px;
 	position: absolute;
 	bottom: 30%;
 	right: 0px;
@@ -50,8 +85,8 @@ h1 {
 	filter:alpha(opacity=9);
 }
 
-#instructions p {
-	margin-top: 3px;
+#instructions a {
+	line-height: 16px;
 }
 
 #metadata {
@@ -85,6 +120,7 @@ h1 {
 
 #metadata ul {
 	line-height: 20px;
+	padding-left: 25px;
 }
 
 li.gimmebar {
@@ -101,4 +137,3 @@ li.user {
 #metadata a:hover {color: #ffffff; text-decoration: underline;}
 #metadata a:active {color: #ffffff; text-decoration: none;}
 #metadata a:visited {color: #ffffff; text-decoration: none;}
-

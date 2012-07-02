@@ -1,15 +1,20 @@
 extends layout
 
 block content
-  div#youtubevideo
+  div#player
     <iframe src="http://player.vimeo.com/video/#{asset.video_id}" width="100%" height="100%" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
   div#instructions
-    p Scroll
-  div#somecontent
-    p= asset.title
-    p
-    a(href=asset.source) #{asset.service}
-    p
-    a(href=#{asset.id}) Asset Link
-    p
-    a(href=username) #{username}
+    a()#intobutton &larr;
+  div#metadata
+    div#titlearea
+      h1= asset.title
+    ul
+      li.youtube
+        a(href='http://www.youtube.com/watch?v=' + asset.video_id) Source
+      li.gimmebar
+        a(href='http://gim.ie/' + asset.short_url_token) gim.ie/#{asset.short_url_token}
+      li.user
+        a(href='https://gimmebar.com/loves/' + username) #{username}
+      if (typeof(collection_slug) != 'undefined')
+        li.gimmebar
+          a(href='#') Collection

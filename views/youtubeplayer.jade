@@ -1,10 +1,9 @@
 extends layout
 
 block content
-  div#youtubevideo
-    <iframe title="YouTube video player" id="ytplayer" src="http://www.youtube.com/embed/#{asset.video_id}?autoplay=0&controls=0&showinfo=0" width="100%" height="100%" frameborder="0" allowfullscreen="" allowscriptaccess="always"></iframe>
+  div#player
   div#instructions
-    a()#intobutton Info
+    a()#intobutton &larr;
   div#metadata
     div#titlearea
       h1= asset.title
@@ -16,14 +15,42 @@ block content
       li.user
         a(href='https://gimmebar.com/loves/' + username) #{username}
       if (typeof(collection_slug) != 'undefined')
-        li= collection_slug
-        li
-          a(href='localhost:3000/' + username + '/djs/' + collection_slug) Next
-      else
-        li
-          a()#nextbutton -->
+        li.gimmebar
+          a(href='#') Collection
+
   script('text/javascript')
-    $('#intobutton').click(function () {
-      $('#intobutton').scrollTo({top:'0px', right:'0px'}, 800 );
-    });
+    //Load player api asynchronously.
+    //From Youtube:
+    var tag = document.createElement('script');
+    tag.src = "http://www.youtube.com/player_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    var done = false;
+    var player;
+    function onYouTubePlayerAPIReady() {
+        player = new YT.Player('player', {
+          height: '100%',
+          width: '100%',
+          videoId: '#{asset.video_id}',
+          playerVars: {
+            'controls': 1, 
+            'showinfo': 0
+          },
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+    }
+    function onPlayerReady(evt) {
+        evt.target.playVideo();
+    }
+    function onPlayerStateChange(newState) {
+        if (newState.data === 0) {
+          window.location.href = '';
+        }
+    }
+    function stopVideo() {
+        player.stopVideo();
+    }
 

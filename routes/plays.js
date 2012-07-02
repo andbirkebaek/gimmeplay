@@ -13,7 +13,7 @@ getAsset = function(req, res){
 	};
 	gimme.setUsername(view.username);
 
-	// Do different thing based on the player
+	// Check if it is an asset that the person wants to play
 	if (view.playerType == 'a' || view.playerType == '') {
 		view.assetID = pathname[2];
 		// if there is an ID, then get that asset
@@ -28,7 +28,7 @@ getAsset = function(req, res){
 					res.render('vimeoplayer', view);
 				} else {
 					// Errors out here. TODO: Get a new asset instead.
-					view = {title: 'Yikes', error: 'We dont know how to deal with this type of asset. (getAsset)'};
+					view = {title: 'Yikes', error: 'We dont know how to deal with this type of asset.'};
 					res.render('error', view);
 					getRandomAsset(res, req, view);
 				};
@@ -174,10 +174,8 @@ function getAssetParams (res, asset) {
 		console.log('Source: ' + asset.source);
 		console.log('src: ' + src);
 
-		// This checks what the first part of the links is. It's probably far from robust.
+		// This checks what the first part of the links is. It's probably far from robust?
 		var firstPartOfURL = src.split("http")[1].substring(0, 3);
-
-
 		if (firstPartOfURL == '://') {
 			var service = src.split("http://")[1].substring(0, 5);
 		} else {
@@ -196,7 +194,7 @@ function getAssetParams (res, asset) {
 
 		console.log('Type: ' + service);
 
-		// Finds the ID for youtube and vimeo videos. Gived 404 if we don't recognize the service.
+		// Finds the ID for youtube and vimeo videos.
 		if (service == 'youtube') {
 			var video_id = asset.source.split("v=")[1].substring(0, 11); // TODO: It can crash here. What to do?
 		} else if (service == 'vimeo')  {

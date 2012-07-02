@@ -6,10 +6,9 @@ var express = require('express');
 var routes = require('./routes');
 var http = require('http');
 var connect = require('connect');
-//var RedisStore = require('connect-redis')(express);
 
 var plays = require('./routes/plays');
-
+var collections = require('./routes/collections')
 var app = express();
 
 app.configure(function(){
@@ -30,7 +29,9 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+// Routes
 app.get('/', routes.index);
+app.get('/collections/', collections.getCollections);
 app.get('/*', plays.getAsset);
 
 http.createServer(app).listen(3000);

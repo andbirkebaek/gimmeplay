@@ -29,14 +29,16 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-
-
-
 // Routes
 app.get('/', routes.index);
 app.get('/collections*', collections.getCollections);
 app.get('/*', plays.getAsset);
 
+/*
 http.createServer(app).listen(3000);
 
-console.log("Express server listening on port 3000");
+console.log("Express server listening on port 3000");*/
+
+var port = process.env.PORT || 3000;
+app.listen(port);
+console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

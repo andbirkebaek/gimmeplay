@@ -74,7 +74,7 @@ function getAssetFromCollection (res, req, view) {
 					req.session.username = view.username;
 					req.session.collection_slug = view.collection_slug;
 					req.session.total = data.total_records;
-				} else if (req.session.username != view.username || req.session.collection_slug != view.username) {
+				} else if (req.session.username != view.username || req.session.collection_slug != view.username || req.session.total != data.total_records) {
 					req.session.username = view.username;
 					req.session.collection_slug = view.collection_slug;
 					req.session.total = data.total_records;
@@ -82,7 +82,6 @@ function getAssetFromCollection (res, req, view) {
 
 				view.asset = getAssetParams(req, data.records[0]);
 				if (view.asset.service == 'youtube') {
-					console.log('slug is: ' + view.collection_slug);
 					res.render('youtubeplayer', view);
 				} else if (view.asset.service == 'vimeo') {
 					res.render('vimeoplayer', view);
@@ -92,14 +91,13 @@ function getAssetFromCollection (res, req, view) {
 						//getAssetFromCollection(res, req, view);
 
 						// For now the error is just going to render like this:
-						view = {title: 'Yikes', error: 'Unknown type)'};
+						view = {title: 'Yikes', error: 'No videos in here. Maybe try another collection'};
 						res.render('error', view);
 					} else {
 						view = {title: 'Yikes', error: 'Unknown type (There is no videos in this collection.)'};
 						res.render('error', view);
 					}
 				}
-			console.log('Total for collecion is: ' + req.session.total);
 			}
 		}
 	}, {
@@ -143,7 +141,6 @@ function getRandomAsset (res, req, view) {
 						res.render('error', view);
 					}
 				}
-				console.log('Total for user is: ' + req.session.total);
 				//Need to set the URL appropriately after rendering the view
 				//setPathAndQuery(req, view);
 			}
@@ -169,10 +166,8 @@ function getAssetById (asset_id, cb) {
 function getAssetParams (res, asset) {
 	if (asset) {
 		//  var src = asset.content.params.src;
-		var src = asset.source;
 
-		console.log('Source: ' + asset.source);
-		console.log('src: ' + src);
+		var src = asset.source;
 
 		// This checks what the first part of the links is. It's probably far from robust?
 		var firstPartOfURL = src.split("http")[1].substring(0, 3);
@@ -181,7 +176,6 @@ function getAssetParams (res, asset) {
 		} else {
 			var service = src.split("https://")[1].substring(0, 5);
 		}
-		console.log('what is the url: ' + service);
 
 		// Sets service to the appropriate service
 		if (service == 'www.y') {
@@ -191,8 +185,6 @@ function getAssetParams (res, asset) {
 		} else {
 			service = 'unknown';
 		}
-
-		console.log('Type: ' + service);
 
 		// Finds the ID for youtube and vimeo videos.
 		if (service == 'youtube') {

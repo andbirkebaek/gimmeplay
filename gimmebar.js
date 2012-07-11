@@ -50,7 +50,6 @@ Gimme.prototype = {
 	getAssetFromCollection: function(callback, opts) {
 		// This gets and asset from the Library, not the collection for the time being
 		var collection_slug = opts.slug;
-		console.log(collection_slug);
 		var opts = extendObj({
 			'limit': 50,
 			'skip': 0,

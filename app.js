@@ -29,9 +29,12 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+
+
+
 // Routes
 app.get('/', routes.index);
-app.get('/collections/', collections.getCollections);
+app.get('/collections*', collections.getCollections);
 app.get('/*', plays.getAsset);
 
 http.createServer(app).listen(3000);

@@ -46,6 +46,7 @@ block content
         evt.target.playVideo();
     }
     function onPlayerStateChange(newState) {
+      console.log(newState.data)
         if (newState.data === 0) {
           window.location.href = '';
         }

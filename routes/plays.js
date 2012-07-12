@@ -83,18 +83,31 @@ function getAssetFromCollection (res, req, view) {
 				view.asset = getAssetParams(req, data.records[0]);
 				if (view.asset.service == 'youtube') {
 					res.render('youtubeplayer', view);
+					req.session.runs = 0;
 				} else if (view.asset.service == 'vimeo') {
 					res.render('vimeoplayer', view);
+					req.session.runs = 0;
 				} else {
 					if (req.session.total != 0) {
 						// This gives an infinite loop when a collection doesn't have a video
 						//getAssetFromCollection(res, req, view);
-						
-						view = {title: 'Yikes', error: 'Unknown asset type.'};
+						if(!req.session.runs) {
+							req.session.runs = 0;
+						}
+
+						if (req.session.runs < 5) {
+							req.session.runs++;
+							console.log('were in there now and the count is: ' + req.session.runs); 
+							getAssetFromCollection(res, req, view);
+						} else {
+						view = {title: 'Whoops', error: 'We couldn\'t find any videos in here. Try another collection.'};
 						res.render('error', view);
+						req.session.runs = 0;
+						}
 					} else {
-						view = {title: 'Yikes', error: 'No videos in here. Maybe try another collection'};
+						view = {title: 'Huh', error: 'There\' no videos in here it seems.'};
 						res.render('error', view);
+						req.session.runs = 0;
 					}
 				}
 			}
@@ -133,7 +146,7 @@ function getRandomAsset (res, req, view) {
 				} else {
 					//view = {title: 'Yikes', error: 'Service isnt known. TODO: Get a new asset.'};
 					//res.render('error', view);
-					if (req.session.total != 0) {
+					if (req.session.total != 0) {console.log('count is: ' + req.session.total);
 						getRandomAsset(res, req, view);
 					} else {
 						view = {title: 'Yikes', error: 'This guy has no collections. (getRandomAsset)'};

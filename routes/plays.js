@@ -89,12 +89,11 @@ function getAssetFromCollection (res, req, view) {
 					if (req.session.total != 0) {
 						// This gives an infinite loop when a collection doesn't have a video
 						//getAssetFromCollection(res, req, view);
-
-						// For now the error is just going to render like this:
-						view = {title: 'Yikes', error: 'No videos in here. Maybe try another collection'};
+						
+						view = {title: 'Yikes', error: 'Unknown asset type.'};
 						res.render('error', view);
 					} else {
-						view = {title: 'Yikes', error: 'Unknown type (There is no videos in this collection.)'};
+						view = {title: 'Yikes', error: 'No videos in here. Maybe try another collection'};
 						res.render('error', view);
 					}
 				}

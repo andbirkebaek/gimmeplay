@@ -35,7 +35,6 @@ app.configure('production', function(){
 
 // Routes
 app.get('/', routes.index);
-app.get('/collections*', collections.getCollections);
 app.get('/*', plays.getAsset);
 
 var port = process.env.PORT || 3000;

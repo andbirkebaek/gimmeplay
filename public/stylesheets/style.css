@@ -26,39 +26,25 @@ body {
 	filter:alpha(opacity=9);
 }
 
-#inputfield {
+.inputfield {
 	width: 500px;
 	height: 50px;
 	font-size: 32px;
-	position: absolute;
+}
+
+#usernamefield {
+	position: relative;
 	margin-left: 200px;
-	margin-top: 40%;
+	margin-top: 200px;
 	padding-left: 10px;
 	padding-right: 10px;
 }
-
-#collections-container {
-	width: 400px;
-	margin: auto;
-	text-align: center;
-}
-
-#collections-container h1 {
-	font-size: 32px;
-	text-align: center;
-}
-
-#collections-container ul {
-	text-align: left;
-	width: 400px;
-	font-size: 20px;
-	font-family: "Helvetica Neue", sans-serif;
-	border-color: #ffffff;
-	margin: auto;
-}
-
-#collections-container li {
-	margin-left: 0px;
+#collectionfield {
+	position: relative;
+	margin-left: 200px;
+	margin-top: 50px;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 h1 {

@@ -20,8 +20,8 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   connect();
-  app.use(express.cookieParser('keyboard cat'));
-  app.use(express.session({ key: 'smelly cat'}));
+  app.use(express.cookieParser(process.env.COOKIE_SECRET));
+  app.use(express.session({ key: process.env.SESSION_SECRET}));
   app.use(app.router);
 });
 

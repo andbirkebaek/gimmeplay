@@ -1,50 +1,70 @@
 body {
-	background-color: #000000;
+	background-color: #ffffff;
 	margin: 0px 0px 0px 0px;
-	height: 700px;
 	color: #ffffff;
 }
+
+/* Splash Page Stuff */
+#splashpagecontents {
+	margin-left: 200px;
+	margin-top: 150px;
+}
+
+#errors {
+	width: 430px;
+	margin-left: 12px;
+	display: none;
+}
+
+h2 {
+	color: #000000;
+	font-family: 'Georgia';
+	font-size: 24px;
+	background-color: #c02d06;
+}
+
+fieldset {
+	border: none;
+	width: 500px;
+	margin: 0px;
+}
+
+input {
+	width: 500px;
+	height: 50px;
+	font-family: 'Georgia';
+	font-size: 32px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+label {
+	line-height: 24px;
+	font-size: 14px;
+	font-family: 'Georgia';
+	color: #ffffff;
+	background-color: #333333;
+}
+
+#splashpagecontents p {
+	line-height: 24px;
+	font-size: 14px;
+	font-family: 'Georgia';
+	color: #ffffff;
+	background-color: #333333;
+	width: 425px;
+	margin-left: 10px;
+}
+
+#splashpagecontents a {color: #f66f4b; text-decoration: none;}
+#splashpagecontents a:hover {color: #f66f4b; text-decoration: underline;}
+#splashpagecontents a:active {color: #f66f4b; text-decoration: none;}
+#splashpagecontents a:visited {color: #f66f4b; text-decoration: none;}
 
 #player {
 	width: 100%;
 	height: 100%;
 	position: fixed;
-}
-
-#content {
-	width: 600px;
-	color: #ffffff;
-	position: absolute;
-	top: 100px;
-	left: 20%;
-	padding: 20px 20px 20px 20px;
-	margin-left: auto;
-	text-align: left;
-	background-color: #000000;
-	opacity: 0.9;
-	-moz-opacity: 0.9;
-	filter:alpha(opacity=9);
-}
-
-.inputfield {
-	width: 500px;
-	height: 50px;
-	font-size: 32px;
-}
-
-#usernamefield {
-	position: relative;
-	margin-left: 200px;
-	margin-top: 200px;
-	padding-left: 10px;
-	padding-right: 10px;
-}
-#collectionfield {
-	position: relative;
-	margin-left: 200px;
-	margin-top: 50px;
-	padding-left: 10px;
-	padding-right: 10px;
 }
 
 h1 {
@@ -54,7 +74,8 @@ h1 {
 	line-height: 60px;
 }
 
-#instructions {
+/* Arrow indicator for the metadata box */
+#arrow {
 	color: #ffffff;
 	font-family: 'Helvetica Neue', Arial;
 	font-size: 20px;
@@ -71,10 +92,11 @@ h1 {
 	filter:alpha(opacity=9);
 }
 
-#instructions a {
+#arrow a {
 	line-height: 16px;
 }
 
+/* Metadata box */
 #metadata {
 	color: #ffffff;
 	font-family: 'Helvetica Neue', Arial;
@@ -123,3 +145,19 @@ li.user {
 #metadata a:hover {color: #ffffff; text-decoration: underline;}
 #metadata a:active {color: #ffffff; text-decoration: none;}
 #metadata a:visited {color: #ffffff; text-decoration: none;}
+
+/* Not sure what this does - Take it out soon if it's ok */	
+/*#content {
+	width: 600px;
+	color: #ffffff;
+	position: absolute;
+	top: 100px;
+	left: 20%;
+	padding: 20px 20px 20px 20px;
+	margin-left: auto;
+	text-align: left;
+	background-color: #000000;
+	opacity: 0.9;
+	-moz-opacity: 0.9;
+	filter:alpha(opacity=9);
+}*/

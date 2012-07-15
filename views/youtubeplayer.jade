@@ -2,7 +2,7 @@ extends layout
 
 block content
   div#player
-  div#instructions
+  div#arrow
     a()#intobutton &larr;
   div#metadata
     div#titlearea
@@ -19,8 +19,8 @@ block content
           a(href='#') Collection
 
   script('text/javascript')
-    //Load player api asynchronously.
-    //From Youtube:
+    //Loading player api asynchronously.
+    //Code from Youtube:
     var tag = document.createElement('script');
     tag.src = "http://www.youtube.com/player_api";
     var firstScriptTag = document.getElementsByTagName('script')[0];

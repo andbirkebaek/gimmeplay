@@ -1,13 +1,29 @@
 extends layout
 
 block content
-  div#player
-    //<iframe src="http://player.vimeo.com/video/23237102?title=0&byline=0&autoplay=1" width="100%" height="100%" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-  input(placeholder="Gimme Bar Username", name="username", type="text")#usernamefield.inputfield
-  input(placeholder="Collection slug", name="collections_slug", type="text")#collectionfield.inputfield
+  div#splashpagecontents
+    div#errors
+      h2 Please type in your username, Tim.
+    fieldset
+      input(placeholder="Gimme Bar Username", name="username", type="text")#usernamefield.inputfield
+      label type in your Gimme Bar username
+    fieldset
+      input(placeholder="Collection Slug", name="collections_slug", type="text")#collectionfield.inputfield
+      label ex: for this collection the slug would be 
+        a(href="andreas/djs/assorted-videos/") assorted-videos
+        | : gimmebar.com/collection/4e12330d2e0aaa4604000127/assorted-videos
+    p 
+      | by 
+      a(href="https://twitter.com/andreasb") @andreasb
+      |  , with contributions from 
+      a(href="https://twitter.com/sirevanhaas") @SirEvanHaas
+      |  & 
+      a(href="https://twitter.com/bedrich") @bedrich
+      | .
+  script('text/javascript' src="/javascripts/jquery.js")
   script("text/javascript")
-    // written by Dean Edwards, 2005
-    // with input from Tino Zijdel - crisp@xs4all.nl
+    // Written by Dean Edwards, 2005
+    // With input from Tino Zijdel - crisp@xs4all.nl
     // http://dean.edwards.name/weblog/2005/10/add-event/
     function addEvent(a,b,c){if(a.addEventListener)a.addEventListener(b,c,!1);else{c.$$guid||(c.$$guid=addEvent.guid++),a.events||(a.events={});var d=a.events[b];d||(d=a.events[b]={},a["on"+b]&&(d[0]=a["on"+b]),a["on"+b]=handleEvent),d[c.$$guid]=c}}function removeEvent(a,b,c){a.removeEventListener?a.removeEventListener(b,c,!1):a.events&&a.events[b]&&c.$$guid&&delete a.events[b][c.$$guid]}function handleEvent(a){a=a||fixEvent(window.event);var b=!0,c=this.events[a.type];for(var d in c)Object.prototype[d]||(this.$$handler=c[d],this.$$handler(a)===!1&&(b=!1));return this.$$handler&&(this.$$handler=null),b}function fixEvent(a){return a.preventDefault=fixEvent.preventDefault,a.stopPropagation=fixEvent.stopPropagation,a}addEvent.guid=1,fixEvent.preventDefault=function(){this.returnValue=!1},fixEvent.stopPropagation=function(){this.cancelBubble=!0},window.addEventListener||(document.onreadystatechange=function(){window.onload&&window.onload!=handleEvent&&(addEvent(window,"load",window.onload),window.onload=handleEvent)});
     var usernamefield = document.getElementById('usernamefield');
@@ -29,7 +45,7 @@ block content
       if (collectionfield.value && usernamefield.value) {
           window.location.href = usernamefield.value + '/djs/' + collectionfield.value + '/';
         } else if (!usernamefield.value) {
-          window.location.href = ''; // Error message goes here.
+          $("#errors").fadeIn(300);
         } else {
           window.location.href = usernamefield.value + '/';
         }

@@ -21,7 +21,7 @@ app.configure(function(){
   app.use(express.methodOverride());
   connect();
   app.use(express.cookieParser(process.env.COOKIE_SECRET));
-  app.use(express.session({ key: process.env.SESSION_SECRET}));
+  app.use(express.session({key: process.env.SESSION_SECRET}));
   app.use(app.router);
 });
 

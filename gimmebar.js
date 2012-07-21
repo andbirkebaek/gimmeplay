@@ -1,3 +1,4 @@
+/* Code from GimmePlop. http://www.gimmeplop.com/ https://github.com/fictivekin/gimmeplop.com */
 var request = require('request');
 var qs = require('querystring');
 

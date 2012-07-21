@@ -89,8 +89,6 @@ function getAssetFromCollection (res, req, view) {
 					req.session.runs = 0;
 				} else {
 					if (req.session.total != 0) {
-						// This gives an infinite loop when a collection doesn't have a video
-						//getAssetFromCollection(res, req, view);
 						if(!req.session.runs) {
 							req.session.runs = 0;
 						}
@@ -217,10 +215,6 @@ function getAssetParams (res, asset) {
 		return false;
 	}
 }
-
-/*setPathAndQuery = function(req, view) {
-	// Update the URL appropriately.
-};*/
 
 
 exports.getAsset = getAsset;

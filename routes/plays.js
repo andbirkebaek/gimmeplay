@@ -59,7 +59,7 @@ getAsset = function(req, res){
 		}
 	} else {
 		// If none of the stuff above worked, render the 404 page
-		view = {title: '404', error: 'Super fail.' };
+		view = {title: '404', error: 'Sorry about that, Tim.'};
 		res.render('404', view);
 	}
 };
@@ -176,10 +176,9 @@ function getAssetById (asset_id, cb) {
 function getAssetParams (res, asset) {
 	if (asset) {
 		//  var src = asset.content.params.src;
-
 		var src = asset.source;
 
-		// This checks what the first part of the links is. It's probably far from robust?
+		// This checks what the first part of the links is. TODO: Make more robust.
 		var firstPartOfURL = src.split("http")[1].substring(0, 3);
 		if (firstPartOfURL == '://') {
 			var service = src.split("http://")[1].substring(0, 5);
@@ -187,7 +186,7 @@ function getAssetParams (res, asset) {
 			var service = src.split("https://")[1].substring(0, 5);
 		}
 
-		// Sets service to the appropriate service
+		// Sets service to the appropriate
 		if (service == 'www.y') {
 			service = 'youtube';
 		} else if (service == 'vimeo') {
@@ -196,7 +195,7 @@ function getAssetParams (res, asset) {
 			service = 'unknown';
 		}
 
-		// Finds the ID for youtube and vimeo videos.
+		// Get the ID
 		if (service == 'youtube') {
 			var video_id = asset.source.split("v=")[1].substring(0, 11); // TODO: It can crash here. What to do?
 		} else if (service == 'vimeo')  {

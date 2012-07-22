@@ -2,6 +2,11 @@ extends layout
 
 block content
   div#splashpagecontents
+    p
+      span#title GimmePlay 
+      |  - turns your 
+      a(href="https://gimmebar.com") Gimme Bar
+      |  collections into playlists
     div#errors
       h2 Please type in your username, Tim.
     fieldset
@@ -19,7 +24,6 @@ block content
       a(href="https://twitter.com/sirevanhaas") @SirEvanHaas
       |  & 
       a(href="https://twitter.com/bedrich") @bedrich
-      | .
   script('text/javascript' src="/javascripts/jquery.js")
   script("text/javascript")
     // Written by Dean Edwards, 2005
@@ -45,7 +49,12 @@ block content
       if (collectionfield.value && usernamefield.value) {
           window.location.href = usernamefield.value + '/djs/' + collectionfield.value + '/';
         } else if (!usernamefield.value) {
-          $("#errors").fadeIn(300);
+          if($("#errors").is(":hidden")) {
+            $("#errors").fadeIn(300);
+          } else {
+            $("#errors").fadeOut(200);
+            $("#errors").fadeIn(300);
+          }
         } else {
           window.location.href = usernamefield.value + '/';
         }

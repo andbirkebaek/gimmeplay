@@ -153,13 +153,16 @@ function getAssetParams (res, asset) {
 	if (asset) {
 		//  var src = asset.content.params.src;
 		var src = asset.source;
-
-		// This checks what the first part of the links is. TODO: Make more robust.
-		var firstPartOfURL = src.split("http")[1].substring(0, 3);
-		if (firstPartOfURL == '://') {
-			var service = src.split("http://")[1].substring(0, 5);
-		} else {
-			var service = src.split("https://")[1].substring(0, 5);
+		
+		try {
+			var firstPartOfURL = src.split("http")[1].substring(0, 3);
+			if (firstPartOfURL == '://') {
+				var service = src.split("http://")[1].substring(0, 5);
+			} else {
+				var service = src.split("https://")[1].substring(0, 5);
+			}
+		} catch (err) {
+			var service = 'unknown';
 		}
 
 		// Sets service to the appropriate
@@ -171,7 +174,7 @@ function getAssetParams (res, asset) {
 			service = 'unknown';
 		}
 
-		// Get the ID
+		// Get the ID, based on the service
 		if (service == 'youtube') {
 			var video_id = asset.source.split("v=")[1].substring(0, 11); // TODO: It can crash here. What to do?
 		} else if (service == 'vimeo')  {

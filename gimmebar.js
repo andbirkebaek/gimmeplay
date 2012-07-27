@@ -9,13 +9,13 @@ function Gimme (username) {
 	if (username) {
 		this.username = username;
 	} else {
-		this.username = 'bedrich';
+		this.username = 'andreas';
 	}
 }
 
 Gimme.prototype = {
 	setUsername: function (username) {
-		this.username = username || 'bedrich';
+		this.username = username || 'andreas';
 	},
 	setMaxRecords: function (total) {
 		this.maxRecords = total || 0;
@@ -57,7 +57,6 @@ Gimme.prototype = {
 			'type': 'embed'
 		}, opts);
 		
-
 		var url = baseURL + '/public/assets/' + this.username + '/' + collection_slug + '?' + qs.stringify(opts);
 		console.log(url);
 		request.get({ 'url': url }, function (error, r, body){

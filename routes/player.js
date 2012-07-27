@@ -4,7 +4,7 @@ var url = require('url');
 var gimmebar = require('../gimmebar');
 var gimme = new gimmebar.Gimme();
 
-getAsset = function(req, res){
+function getAsset(req, res){
 	var pathname = url.parse(req.url).pathname.substring(1).split('/');
   	var view = {
 		title: 'Player', 
@@ -26,7 +26,7 @@ getAsset = function(req, res){
 				} else if (view.asset.service == 'vimeo') {
 					res.render('vimeoplayer', view);
 				} else {
-					view = {title: 'Yikes', error: 'We don\t know how to deal with this one.'};
+					view = {title: 'Yikes', error: 'We don\t know how to deal with this one. Sorry.'};
 					res.render('error', view);
 				};
 			});
@@ -48,7 +48,7 @@ function getAssetFromCollection (res, req, view) {
 	gimme.getAssetFromCollection(function (err, data) {
 		if (!err) {
 			if (data.errors && data.errors[0].name === "RESOURCE_NOT_FOUND") {
-				res.render('404', view = {title: 'Error', error: 'Ressource not found'});
+				res.render('404', view = {title: 'Yikes', error: 'We couldn\'t find the ressource. Are you sure this collection exists?'});
 			} else {
 				if (!req.session.username || !req.session.collection_slug) {
 					req.session.username = view.username;
@@ -78,12 +78,12 @@ function getAssetFromCollection (res, req, view) {
 							console.log('were in there now and the count is: ' + req.session.runs); 
 							getAssetFromCollection(res, req, view);
 						} else {
-						view = {title: 'Whoops', error: 'We couldn\'t find any videos in here. Try another collection.'};
+						view = {title: 'Whoops', error: 'We couldn\'t find any videos in here. Can we ask you to try another collection. Thanks you.'};
 						res.render('error', view);
 						req.session.runs = 0;
 						}
 					} else {
-						view = {title: 'Huh', error: 'There\' no videos in here it seems.'};
+						view = {title: 'Hey,', error: 'There\' no videos in here. Try a collection with videos in it, ok?'};
 						res.render('error', view);
 						req.session.runs = 0;
 					}
@@ -102,7 +102,7 @@ function getRandomAsset (res, req, view) {
 	gimme.getPublicAssets(function (err, data) {
 		if (!err) {			
 			if (data.errors && data.errors[0].name === 'RESOURCE_NOT_FOUND') {
-				res.render('404', view = {title: 'error', error: 'Ressource not found'});
+				res.render('404', view = {title: 'error', error: 'We couldn\'t find the ressource. Try another one!'});
 			} else {
 				if (!req.session.username) { // first run
 					req.session.username = view.username;
@@ -122,17 +122,13 @@ function getRandomAsset (res, req, view) {
 				} else if (view.asset.service == 'vimeo') {
 					res.render('vimeoplayer', view);
 				} else {
-					//view = {title: 'Yikes', error: 'Service isnt known. TODO: Get a new asset.'};
-					//res.render('error', view);
 					if (req.session.total != 0) {console.log('count is: ' + req.session.total);
 						getRandomAsset(res, req, view);
 					} else {
-						view = {title: 'Yikes', error: 'This guy has no collections. (getRandomAsset)'};
+						view = {title: 'Yikes', error: 'There is no gimmies here, sir.'};
 						res.render('error', view);
 					}
 				}
-				//Need to set the URL appropriately after rendering the view
-				//setPathAndQuery(req, view);
 			}
 		}
 	}, {

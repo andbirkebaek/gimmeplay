@@ -47,7 +47,7 @@ block content
 
     function redirecting () {
       if (collectionfield.value && usernamefield.value) {
-          window.location.href = usernamefield.value + '/djs/' + collectionfield.value + '/';
+          window.location.href = 'u/' + usernamefield.value + '/' + collectionfield.value + '/';
         } else if (!usernamefield.value) {
           if($("#errors").is(":hidden")) {
             $("#errors").fadeIn(300);
@@ -56,7 +56,7 @@ block content
             $("#errors").fadeIn(300);
           }
         } else {
-          window.location.href = usernamefield.value + '/';
+          window.location.href = 'u/' + usernamefield.value + '/';
         }
     };
 

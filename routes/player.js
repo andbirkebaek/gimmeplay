@@ -13,7 +13,6 @@ getAsset = function(req, res){
 	};
 	gimme.setUsername(view.username);
 
-	// Check if it is an asset that the person wants to play
 	if (view.playerType == 'a' || view.playerType == '') {
 		view.assetID = pathname[2];
 		// if there is an ID, then get that asset
@@ -27,36 +26,17 @@ getAsset = function(req, res){
 				} else if (view.asset.service == 'vimeo') {
 					res.render('vimeoplayer', view);
 				} else {
-					// Errors out here. TODO: Get a new asset instead.
-					view = {title: 'Yikes', error: 'We dont know how to deal with this type of asset.'};
+					view = {title: 'Yikes', error: 'We don\t know how to deal with this one.'};
 					res.render('error', view);
-					getRandomAsset(res, req, view);
 				};
 			});
 		} else {
 			// If there's no assetID, get a random one
 			getRandomAsset(res, req, view);
 		}
-	} else if (view.playerType = 'djs') {
+	} else if (view.playerType = 'u') {
 		view.collection_slug = pathname[2];
-		view.assetID = pathname[3];
-		// If there is an assetID, get that asset
-		if (view.assetID) {
-			getAssetById(view.assetID, function(asset) {
-				view.asset = getAssetParams(res, asset);
-				if (view.asset.service == 'youtube') {
-					res.render('youtubeplayer', view);
-				} else if (view.asset.service == 'vimeo') {
-					res.render('vimeoplayer', view);
-				} else {
-					view = {title: 'Yikes', error: 'This is where we choose what to render (getAsset)'};
-					res.render('error', view);
-				}
-			});
-		} else {
-			// Otherwise, get a random asset from that collection
-			getAssetFromCollection(res, req, view);
-		}
+		getAssetFromCollection(res, req, view);
 	} else {
 		// If none of the stuff above worked, render the 404 page
 		view = {title: '404', error: 'Sorry about that, Tim.'};

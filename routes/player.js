@@ -8,8 +8,8 @@ getAsset = function(req, res){
 	var pathname = url.parse(req.url).pathname.substring(1).split('/');
   	var view = {
 		title: 'Player', 
-  		username: pathname[0],
-  		playerType: pathname[1]
+  		username: pathname[1],
+  		playerType: pathname[0]
 	};
 	gimme.setUsername(view.username);
 

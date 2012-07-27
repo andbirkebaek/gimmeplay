@@ -7,8 +7,7 @@ var routes = require('./routes');
 var http = require('http');
 var connect = require('connect');
 
-var plays = require('./routes/plays');
-var collections = require('./routes/collections')
+var player = require('./routes/player');
 var app = express();
 
 app.configure(function(){
@@ -35,7 +34,8 @@ app.configure('production', function(){
 
 // Routes
 app.get('/', routes.index);
-app.get('/*', plays.getAsset);
+app.get('/a/*', player.getAsset);
+app.get('/u/*', player.getAsset);
 
 var port = process.env.PORT || 3000;
 app.listen(port);

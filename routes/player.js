@@ -7,7 +7,7 @@ var gimme = new gimmebar.Gimme();
 function getAsset(req, res){
 	var pathname = url.parse(req.url).pathname.substring(1).split('/');
   	var view = {
-		title: 'Player', 
+		title: 'Playing..', 
   		username: pathname[1],
   		playerType: pathname[0]
 	};

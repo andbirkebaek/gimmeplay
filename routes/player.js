@@ -177,12 +177,12 @@ function getAssetParams (res, asset) {
 		// Get the ID, based on the service
 		try {
 			if (service == 'youtube') {
-				var video_id = asset.source.split("v=")[1].substring(0, 11); // TODO: It can crash here. What to do?
+				var video_id = asset.source.split("v=")[1].substring(0, 11);
 			} else if (service == 'vimeo')  {
 				var video_id = asset.source.split("com/")[1].substring(0, 8);
 			}
 		} catch (err) {
-			var service = 'unknown';
+			service = 'unknown';
 			var video_id = 'unknown';
 		}
 

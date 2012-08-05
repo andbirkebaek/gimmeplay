@@ -35,8 +35,13 @@ function getAsset(req, res){
 			getRandomAsset(res, req, view);
 		}
 	} else if (view.playerType = 'u') {
-		view.collection_slug = pathname[2];
-		getAssetFromCollection(res, req, view);
+		if (pathname[2]) {
+			view.collection_slug = pathname[2];
+			getAssetFromCollection(res, req, view);
+		} else {
+			getRandomAsset(res, req, view);
+		}
+
 	} else {
 		// If none of the stuff above worked, render the 404 page
 		view = {title: '404', error: 'Sorry about that, Tim.'};
@@ -112,7 +117,7 @@ function getRandomAsset (res, req, view) {
 				 	req.session.total = data.total_records;
 				} else if (req.session.total != data.total_records) {
 					req.session.username = view.username;
-					req.session.total = data.total_records;	
+					req.session.total = data.total_records;
 				}
 
 				view.asset = getAssetParams(res, data.records[0]);

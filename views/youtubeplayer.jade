@@ -2,8 +2,6 @@ extends layout
 
 block content
   div#player
-  div#arrow
-    a()#intobutton &larr;
   div#metadata
     div#titlearea
       h1= asset.title
@@ -17,24 +15,6 @@ block content
       if (typeof(collection_slug) != 'undefined')
         li.gimmebar
           a(href='#') Collection
-  div#footer
-    div#user  
-      a(href='https://gimmebar.com/loves/' + username)
-        img(src="https://pro.gimmebar.com/img/avatar/" + username, height="30px", width="30px") 
-        | #{username}
-    div#source.metadataimages
-      a(href='http://www.youtube.com/watch?v=' + asset.video_id) 
-        img(src="http://localhost:3000/images/source14.png")
-        | Source
-    div#shortlink.metadataimages
-      a(href='http://gim.ie/' + asset.short_url_token) 
-        img(src="http://localhost:3000/images/gimmebar14.png")
-        | gim.ie/#{asset.short_url_token}
-    div#collection.metadataimages
-      a(href='#')
-        img(src="http://localhost:3000/images/gimmebar14.png")
-        | Collection
-  div#footer-bg
 
 
   script('text/javascript')

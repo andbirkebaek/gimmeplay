@@ -27,7 +27,7 @@ function getAsset(req, res){
 					res.render('vimeoplayer', view);
 				} else {
 					view = {title: 'Yikes', error: 'We don\t know how to deal with this one. Sorry.'};
-					res.render('error', view);
+					res.render('404', view);
 				};
 			});
 		} else {
@@ -78,13 +78,13 @@ function getAssetFromCollection (res, req, view) {
 							console.log('were in there now and the count is: ' + req.session.runs); 
 							getAssetFromCollection(res, req, view);
 						} else {
-						view = {title: 'Whoops', error: 'We couldn\'t find any videos in here. Can we ask you to try another collection. Thanks you.'};
-						res.render('error', view);
+						view = {title: 'Whoops', error: 'We couldn\'t find any videos in here. Can we ask you to try another collection? Thanks you.'};
+						res.render('404', view);
 						req.session.runs = 0;
 						}
 					} else {
 						view = {title: 'Hey,', error: 'There\' no videos in here. Try a collection with videos in it, ok?'};
-						res.render('error', view);
+						res.render('404', view);
 						req.session.runs = 0;
 					}
 				}
@@ -126,7 +126,7 @@ function getRandomAsset (res, req, view) {
 						getRandomAsset(res, req, view);
 					} else {
 						view = {title: 'Yikes', error: 'There is no gimmies here, sir.'};
-						res.render('error', view);
+						res.render('404', view);
 					}
 				}
 			}
@@ -175,10 +175,15 @@ function getAssetParams (res, asset) {
 		}
 
 		// Get the ID, based on the service
-		if (service == 'youtube') {
-			var video_id = asset.source.split("v=")[1].substring(0, 11); // TODO: It can crash here. What to do?
-		} else if (service == 'vimeo')  {
-			var video_id = asset.source.split("com/")[1].substring(0, 8);
+		try {
+			if (service == 'youtube') {
+				var video_id = asset.source.split("v=")[1].substring(0, 11); // TODO: It can crash here. What to do?
+			} else if (service == 'vimeo')  {
+				var video_id = asset.source.split("com/")[1].substring(0, 8);
+			}
+		} catch (err) {
+			var service = 'unknown';
+			var video_id = 'unknown';
 		}
 
 		return {

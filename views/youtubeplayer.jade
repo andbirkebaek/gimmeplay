@@ -16,7 +16,6 @@ block content
         i by 
         a(href='https://gimmebar.com/loves/' + username) #{username}
 
-
   script('text/javascript')
     //Loading player api asynchronously.
     //Code from Youtube.com:
@@ -45,12 +44,8 @@ block content
         evt.target.playVideo();
     }
     function onPlayerStateChange(newState) {
-      console.log(newState.data)
         if (newState.data === 0) {
           window.location.href = '';
         }
-    }
-    function stopVideo() {
-        player.stopVideo();
     }
 

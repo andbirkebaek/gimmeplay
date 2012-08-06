@@ -15,7 +15,7 @@ block content
     fieldset
       input(placeholder="Collection Slug", name="collections_slug", type="text")#collectionfield.inputfield
       label ex: for this collection the slug would be 
-        a(href="andreas/djs/assorted-videos/") assorted-videos
+        a(href="u/andreas/assorted-videos/") assorted-videos
         | : gimmebar.com/collection/4e12330d2e0aaa4604000127/assorted-videos
     p 
       | by 
@@ -47,7 +47,7 @@ block content
 
     function redirecting () {
       if (collectionfield.value && usernamefield.value) {
-          window.location.href = 'u/' + usernamefield.value + '/' + collectionfield.value + '/';
+          window.location.href = 'u/' + usernamefield.value + '/' + collectionfield.value;
         } else if (!usernamefield.value) {
           if($("#errors").is(":hidden")) {
             $("#errors").fadeIn(300);
@@ -56,7 +56,7 @@ block content
             $("#errors").fadeIn(300);
           }
         } else {
-          window.location.href = 'u/' + usernamefield.value + '/';
+          window.location.href = 'u/' + usernamefield.value;
         }
     };
 

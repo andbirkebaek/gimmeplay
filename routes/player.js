@@ -35,7 +35,7 @@ function getAsset(req, res){
 			getRandomAsset(res, req, view);
 		}
 	} else if (view.playerType = 'u') {
-		if (pathname[2] != '') {
+		if (pathname[2]) {
 			view.collection_slug = pathname[2];
 			getAssetFromCollection(res, req, view);
 		} else {

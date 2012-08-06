@@ -35,7 +35,7 @@ function getAsset(req, res){
 			getRandomAsset(res, req, view);
 		}
 	} else if (view.playerType = 'u') {
-		if (pathname[2]) {
+		if (pathname[2] != '') {
 			view.collection_slug = pathname[2];
 			getAssetFromCollection(res, req, view);
 		} else {
@@ -107,7 +107,7 @@ function getRandomAsset (res, req, view) {
 	gimme.getPublicAssets(function (err, data) {
 		if (!err) {			
 			if (data.errors && data.errors[0].name === 'RESOURCE_NOT_FOUND') {
-				res.render('404', view = {title: 'error', error: 'We couldn\'t find the ressource. Try another one!'});
+				res.render('404', view = {title: 'Sorry', error: 'We couldn\'t find the ressource. Try another one!'});
 			} else {
 				if (!req.session.username) { // first run
 					req.session.username = view.username;

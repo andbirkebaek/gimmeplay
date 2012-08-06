@@ -1,5 +1,6 @@
 body {
 	background-color: #ffffff;
+	font-family: 'Georgia', sans-serif;
 	margin: 0px 0px 0px 0px;
 	color: #000000;
 }
@@ -22,9 +23,8 @@ body {
 
 h2 {
 	color: #000000;
-	font-family: 'Georgia';
 	font-size: 24px;
-	background-color: #c02d06;
+	background-color: #F66F4B;
 }
 
 fieldset {
@@ -36,7 +36,7 @@ fieldset {
 input {
 	width: 500px;
 	height: 50px;
-	font-family: 'Georgia';
+	font-family: 'Georgia', sans-serif;
 	font-size: 32px;
 	padding-left: 10px;
 	padding-right: 10px;
@@ -45,7 +45,7 @@ input {
 label {
 	line-height: 24px;
 	font-size: 14px;
-	font-family: 'Georgia';
+	font-family: 'Georgia', sans-serif;
 	color: #ffffff;
 	background-color: #333333;
 }
@@ -53,7 +53,7 @@ label {
 #splashpagecontents p {
 	line-height: 24px;
 	font-size: 14px;
-	font-family: 'Georgia';
+	font-family: 'Georgia', sans-serif;
 	color: #ffffff;
 	background-color: #333333;
 	display: inline-block;
@@ -78,60 +78,10 @@ h1 {
 	line-height: 60px;
 }
 
-/* New metadata footer */
-#footer {
-	position: absolute;
-	bottom: 0;
-	height: 30px;
-	width: 100%;
-	line-height: 30px;
-	z-index: 5;
-}
-
-#footer-bg {
-	position: absolute;
-	bottom: 0;
-	height: 30px;
-	width: 100%;
-	z-index: 4;
-	background-color: #000000;
-	opacity: 0.8;
-}
-
-.metadataimages {
-	display: block;
-}
-
-#footer a:link {color: #ffffff; text-decoration: none;}
-#footer a:hover {color: #ffffff; text-decoration: underline;}
-#footer a:active {color: #ffffff; text-decoration: none;}
-#footer a:visited {color: #ffffff; text-decoration: none;}
-
-#user {
-	height: 30px;
-	line-height: 30px;
-	float: left;
-}
-#source {
-	height: 30px;
-	float: left;
-	margin-left: 10px;
-}
-#shortlink {
-	height: 30px;
-	float: left;
-	margin-left: 10px;
-}
-#collection {
-	height: 30px;
-	float: left;
-	margin-left: 10px;
-}
-
-/* Metadata box */
+/* Metadata modal */
 #metadata {
 	color: #ffffff;
-	font-family: 'Georgia', Arial;
+	font-family: 'Georgia', sans-serif;
 	font-size: 13px;
 	width: 180px;
 	padding: 0px 10px 0px 10px;
@@ -164,23 +114,18 @@ h1 {
 
 #metadata ul {
 	line-height: 20px;
-	padding-left: 25px;
 }
 
-li.gimmebar {
-	list-style-image: url(../images/gimmebar14.png);
-}
-li.youtube {
-	list-style-image: url(../images/source14.png);
-}
-li.user {
-	list-style-image: url(../images/user14.png);
+#metadata li {
+	list-style-type: none;
+	margin-left: -30px;
+	padding-left: 0px;
 }
 
-#metadata a:link {color: #ffffff; text-decoration: none;}
-#metadata a:hover {color: #ffffff; text-decoration: underline;}
-#metadata a:active {color: #ffffff; text-decoration: none;}
-#metadata a:visited {color: #ffffff; text-decoration: none;}
+#metadata a:link {color: #f66f4b; text-decoration: none;}
+#metadata a:hover {color: #f66f4b; text-decoration: underline;}
+#metadata a:active {color: #f66f4b; text-decoration: none;}
+#metadata a:visited {color: #f66f4b; text-decoration: none;}
 
 /* Styling of 404 page */
 #errorcontent {

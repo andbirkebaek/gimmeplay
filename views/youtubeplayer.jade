@@ -6,15 +6,15 @@ block content
     div#titlearea
       h1= asset.title
     ul
-      li.youtube
-        a(href='http://www.youtube.com/watch?v=' + asset.video_id) Source
-      li.gimmebar
-        a(href='http://gim.ie/' + asset.short_url_token) gim.ie/#{asset.short_url_token}
-      li.user
+      li 
+        i from  
+        a(href='http://www.youtube.com/watch?v=' + asset.video_id) Youtube
+      li
+        i via 
+        a(href='http://gim.ie/' + asset.short_url_token) Gimme Bar
+      li
+        i by 
         a(href='https://gimmebar.com/loves/' + username) #{username}
-      if (typeof(collection_slug) != 'undefined')
-        li.gimmebar
-          a(href='#') Collection
 
 
   script('text/javascript')

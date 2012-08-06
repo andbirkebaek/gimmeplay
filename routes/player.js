@@ -79,8 +79,7 @@ function getAssetFromCollection (res, req, view) {
 						}
 
 						if (req.session.runs < 5) {
-							req.session.runs++;
-							console.log('were in there now and the count is: ' + req.session.runs); 
+							req.session.runs++; 
 							getAssetFromCollection(res, req, view);
 						} else {
 						view = {title: 'Whoops', error: 'We couldn\'t find any videos in here. Can we ask you to try another collection? Thanks you.'};
@@ -127,7 +126,7 @@ function getRandomAsset (res, req, view) {
 				} else if (view.asset.service == 'vimeo') {
 					res.render('vimeoplayer', view);
 				} else {
-					if (req.session.total != 0) {console.log('count is: ' + req.session.total);
+					if (req.session.total != 0) {
 						getRandomAsset(res, req, view);
 					} else {
 						view = {title: 'Yikes', error: 'There is no gimmies here, sir.'};

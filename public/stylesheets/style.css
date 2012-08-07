@@ -79,21 +79,37 @@ h1 {
 }
 
 /* Metadata modal */
-#metadata {
+.metadata-basics {
 	color: #ffffff;
 	font-family: 'Georgia', sans-serif;
 	font-size: 13px;
+	z-index: 5;
+	background-color: #000000;
+	opacity: 0.9;
+	-moz-opacity: 0.9;
+	filter:alpha(opacity=9);
+}
+
+#arrow {
+	width: 45px;
+	font-size: 14px;
+	text-align: center;
+	position: absolute;
+	left: 20px;
+	bottom: 0;
+}
+
+#arrow p {
+	margin: 0 0 0 0;
+}
+
+#metadata {
 	width: 180px;
 	padding: 0px 10px 0px 10px;
 	position: absolute;
 	left: 10px;
 	top: 100%;
 	margin: 0px;
-	z-index: 5;
-	background-color: #000000;
-	opacity: 0.9;
-	-moz-opacity: 0.9;
-	filter:alpha(opacity=9);
 } 
 
 #metadata h1 {

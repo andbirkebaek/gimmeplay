@@ -3,7 +3,11 @@ extends layout
 block content
   div#player
     <iframe id="playerframe" src="http://player.vimeo.com/video/#{asset.video_id}?api=1&player_id=playerframe&autoplay=1&byline=0" width="100%" height="100%" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-  div#metadata
+  div#arrow.metadata-basics
+    p 
+      i Info 
+      | &darr;
+  div#metadata.metadata-basics
     div#titlearea
       h1= asset.title
     ul

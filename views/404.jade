@@ -3,5 +3,8 @@ extends layout
 block content
   div#errorcontent
     h1= title
-    p= error
+    p= error 
+      if(typeof(novideos) != 'undefined')
+      a(href="http://gimmeplay.com/u/" + username + '/' + collection_slug)  Try again
+      | ?
     a(href="http://gimmeplay.com/") Go back

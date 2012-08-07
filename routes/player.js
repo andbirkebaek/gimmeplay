@@ -82,9 +82,10 @@ function getAssetFromCollection (res, req, view) {
 							req.session.runs++; 
 							getAssetFromCollection(res, req, view);
 						} else {
-						view = {title: 'Whoops', error: 'We couldn\'t find any videos in here. Can we ask you to try another collection? Thanks you.'};
-						res.render('404', view);
-						req.session.runs = 0;
+							var pathname = url.parse(req.url).pathname.substring(1).split('/');
+							view = {title: 'Sorry', error: 'We didn\'t find any videos in here.', novideos: 'True', username: pathname[1], collection_slug: pathname[2]};
+							res.render('404', view);
+							req.session.runs = 0;
 						}
 					} else {
 						view = {title: 'Hey,', error: 'There\' no videos in here. Try a collection with videos in it, ok?'};

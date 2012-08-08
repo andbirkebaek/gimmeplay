@@ -8,6 +8,7 @@
 
 ## Notes
 - `[cookie secret]` and `[session secret]` can be replaced by any string.
+- The [Connect Framework](http://www.senchalabs.org/connect/) is required, but does only support Node.js versions up to 0.6.X at the time.
 
 ## Contributors
 

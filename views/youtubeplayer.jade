@@ -2,28 +2,35 @@ extends layout
 
 block content
   div#player
-  div#arrow.metadata-basics
-    p 
-      i Info 
-      | &darr;
-  div#metadata.metadata-basics
-    div#titlearea
-      h1= asset.title
-    ul
-      li 
-        i from  
-        a(href='http://www.youtube.com/watch?v=' + asset.video_id) Youtube
-      li
-        i via 
-        a(href='http://gim.ie/' + asset.short_url_token) Gimme Bar
-      li
-        i by 
-        a(href='https://gimmebar.com/loves/' + username) #{username}
-      li
-        i at 
-        a(href="http://gimmeplay.com/a/" + username + "/" + asset.id) Permalink
+  div#controls
+    div#arrow.metadata-basics
+      a()#button
+        img(src="/images/info.png")
+    div#nextbutton.metadata-basics
+      if(typeof(collection_slug) != 'undefined')
+        a(href="http://gimmeplay.com/u/" + username + "/" + collection_slug)
+          img(src="/images/next.png")
+      else
+        a(href="http://gimmeplay.com/u/" + username)
+          img(src="/images/next.png")
+    div#metadata.metadata-basics
+      div#titlearea
+        h1= asset.title
+      ul
+        li 
+          i from  
+          a(href='http://www.youtube.com/watch?v=' + asset.video_id) Youtube
+        li
+          i via 
+          a(href='http://gim.ie/' + asset.short_url_token) Gimme Bar
+        li
+          i by 
+          a(href='https://gimmebar.com/loves/' + username) #{username}
+        li
+          i at 
+          a(href="http://gimmeplay.com/a/" + username + "/" + asset.id) Permalink
 
-
+  script('text/javascript' src="/javascripts/jquery.js")
   script('text/javascript')
     //Loading player api asynchronously.
     //Code from Youtube.com:
@@ -57,3 +64,10 @@ block content
         }
     }
 
+    $('#button').click(function () {
+      if ($("#metadata").is(":hidden")) {
+        $("#metadata").fadeIn(300);
+      } else {
+        $("#metadata").fadeOut(300);
+      }
+    });

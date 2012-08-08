@@ -3,26 +3,33 @@ extends layout
 block content
   div#player
     <iframe id="playerframe" src="http://player.vimeo.com/video/#{asset.video_id}?api=1&player_id=playerframe&autoplay=1&byline=0" width="100%" height="100%" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-  div#arrow.metadata-basics
-    p 
-      i Info 
-      | &darr;
-  div#metadata.metadata-basics
-    div#titlearea
-      h1= asset.title
-    ul
-      li 
-        i from  
-        a(href='http://vimeo.com/' + asset.video_id) Vimeo
-      li
-        i via 
-        a(href='http://gim.ie/' + asset.short_url_token) Gimme Bar
-      li
-        i by 
-        a(href='https://gimmebar.com/loves/' + username) #{username}
-      li
-        i at 
-        a(href="http://gimmeplay.com/a/" + username + "/" + asset.id) Permalink
+  div#controls
+    div#arrow.metadata-basics
+      a()#button
+        img(src="/images/info.png")
+    div#nextbutton.metadata-basics
+      if(typeof(collection_slug) != 'undefined')
+        a(href="http://gimmeplay.com/u/" + username + "/" + collection_slug)
+          img(src="/images/next.png")
+      else
+        a(href="http://gimmeplay.com/u/" + username)
+          img(src="/images/next.png")
+    div#metadata.metadata-basics
+      div#titlearea
+        h1= asset.title
+      ul
+        li 
+          i from  
+          a(href='http://vimeo.com/' + asset.video_id) Vimeo
+        li
+          i via 
+          a(href='http://gim.ie/' + asset.short_url_token) Gimme Bar
+        li
+          i by 
+          a(href='https://gimmebar.com/loves/' + username) #{username}
+        li
+          i at 
+          a(href="http://gimmeplay.com/a/" + username + "/" + asset.id) Permalink
   
   script('text/javascript' src="/javascripts/jquery.js")
   script('text/javascript' src="http://a.vimeocdn.com/js/froogaloop2.min.js")
@@ -42,3 +49,11 @@ block content
     function onFinish(id) {
       window.location.href = '';
     }
+
+    $('#button').click(function () {
+      if ($("#metadata").is(":hidden")) {
+        $("#metadata").fadeIn(300);
+      } else {
+        $("#metadata").fadeOut(300);
+      }
+    });

@@ -2,7 +2,7 @@ extends layout
 
 block content
   div#splashpagecontents
-    p
+    p.title
       span#title GimmePlay 
       |  - turns your 
       a(href="https://gimmebar.com") Gimme Bar
@@ -11,19 +11,20 @@ block content
       h2 Please type in your username, Tim.
     fieldset
       input(placeholder="Gimme Bar Username", name="username", type="text")#usernamefield.inputfield
-      label type in your Gimme Bar username. then hit return or type in a collection slug too
+      label Type in your Gimme Bar username, then hit return or type in a collection slug too
     fieldset
       input(placeholder="Collection Slug", name="collections_slug", type="text")#collectionfield.inputfield
-      label ex: for this collection the slug would be 
+      label Ex: for this collection the slug would be 
         a(href="u/andreas/assorted-videos/") assorted-videos
         | : gimmebar.com/collection/4e12330d2e0aaa4604000127/assorted-videos
-    p 
-      | by 
+    p.contributors 
+      | By 
       a(href="https://twitter.com/andreasb") @andreasb
       |  , with contributions from 
       a(href="https://twitter.com/sirevanhaas") @SirEvanHaas
       |  & 
       a(href="https://twitter.com/bedrich") @bedrich
+      | .
   script('text/javascript' src="/javascripts/jquery.js")
   script("text/javascript")
     // Written by Dean Edwards, 2005

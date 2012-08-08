@@ -7,7 +7,7 @@
 - `COOKIE_SECRET=[cookie secret] SESSION_SECRET=[session secret] node app.js`
 
 ## Notes
-- `[cookie secret]` and [session secret]` can be replaced by any string.
+- `[cookie secret]` and `[session secret]` can be replaced by any string.
 
 ## Contributors
 

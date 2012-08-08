@@ -2,7 +2,7 @@ body {
 	background-color: #333333;
 	font-family: 'Georgia', sans-serif;
 	margin: 0px 0px 0px 0px;
-	color: #000000;
+	color: #ffffff;
 }
 
 /* Splash Page Stuff */
@@ -80,7 +80,7 @@ label {
 }
 
 h1 {
-	color: #333333;
+	color: #ffffff;
 	font-family: 'Georgia', sans-serif;
 	font-size: 48px;
 	line-height: 60px;

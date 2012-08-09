@@ -5,8 +5,6 @@
 var express = require('express');
 var routes = require('./routes');
 var http = require('http');
-var connect = require('connect');
-
 var player = require('./routes/player');
 var app = express();
 
@@ -17,7 +15,6 @@ app.configure(function(){
   app.use(express.static(__dirname + '/public'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  connect();
   app.use(express.cookieParser(process.env.COOKIE_SECRET));
   app.use(express.session({key: process.env.SESSION_SECRET}));
   app.use(app.router);

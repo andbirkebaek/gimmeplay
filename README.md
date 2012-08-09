@@ -8,7 +8,6 @@
 
 ## Notes
 - `[cookie secret]` & `[session secret]` can be replaced by any string.
-- The [Connect Framework](http://www.senchalabs.org/connect/) can't be installed on Node.js versions newer than 0.6.X, but it's not used at the moment, so you can ignore the errors.
 
 ## Contributors
 

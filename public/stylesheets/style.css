@@ -117,7 +117,7 @@ h1 {
 	margin-top: 5px;
 }
 
-#arrow {
+#infobutton {
 	width: 30px;
 	height: 30px;
 	font-size: 14px;
@@ -129,11 +129,11 @@ h1 {
 	cursor: pointer;
 }
 
-#arrow img {
+#infobutton img {
 	margin-top: 5px;
 }
 
-#arrow p {
+#infobutton p {
 	margin: 0 0 0 0;
 }
 
@@ -142,10 +142,10 @@ h1 {
 #nextbutton a:active {color: #ffffff; text-decoration: none;}
 #nextbutton a:visited {color: #ffffff; text-decoration: none;}
 
-#arrow a {color: #ffffff; text-decoration: none;}
-#arrow a:hover {color: #ffffff; text-decoration: underline;}
-#arrow a:active {color: #ffffff; text-decoration: none;}
-#arrow a:visited {color: #ffffff; text-decoration: none;}
+#infobutton a {color: #ffffff; text-decoration: none;}
+#infobutton a:hover {color: #ffffff; text-decoration: underline;}
+#infobutton a:active {color: #ffffff; text-decoration: none;}
+#infobutton a:visited {color: #ffffff; text-decoration: none;}
 
 #metadata {
 	width: 180px;

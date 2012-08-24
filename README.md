@@ -6,8 +6,7 @@
 - `cd my_gimmeplay && npm install -d`
 - `COOKIE_SECRET=[cookie secret] SESSION_SECRET=[session secret] node app.js`
 
-## Notes
-- `[cookie secret]` & `[session secret]` can be replaced by any string.
+`[cookie secret]` & `[session secret]` can be replaced by any string.
 
 ## Contributors
 

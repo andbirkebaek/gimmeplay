@@ -12,8 +12,6 @@ Then, run the app:
 
 You should now be able to access it at `localhost:3000`
 
-3. you should now be able to access it at `localhost
-
 ## Contributors
 
 - [Andreas Birkebæk](http://twitter.com/andreasb)
